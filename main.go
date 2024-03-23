@@ -31,9 +31,9 @@ func main() {
 
 	supabasedb := ds.NewSupabaseDB()
 
-	courseSupabase := repo.NewCoursesRepository(supabasedb)
-
-	sv0 := sv.NewCoursesService(courseSupabase)
+	courseRepo := repo.NewCoursesRepository(supabasedb)
+	courseLessonRepo := repo.NewCourseLessonsRepository(supabasedb)
+	sv0 := sv.NewCoursesService(courseRepo, courseLessonRepo)
 
 	gw.NewHTTPGateway(app, sv0)
 

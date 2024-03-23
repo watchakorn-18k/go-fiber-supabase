@@ -7,4 +7,5 @@ func GatewayCourses(gateway HTTPGateway, app *fiber.App) {
 
 	api.Get("/", gateway.GetAllCourses)
 	api.Get("/get-course", gateway.GetCourse)
+	api.Get("/course-lessons", gateway.GetAllCourseLessons)
 }

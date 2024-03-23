@@ -24,3 +24,11 @@ func (h HTTPGateway) GetCourse(ctx *fiber.Ctx) error {
 	}
 	return ctx.Status(fiber.StatusOK).JSON(data)
 }
+
+func (h HTTPGateway) GetAllCourseLessons(ctx *fiber.Ctx) error {
+	data, err := h.CoursesService.GetAllCourseLessons()
+	if err != nil {
+		return ctx.Status(fiber.StatusForbidden).JSON(entities.ResponseModel{Message: "cannot get course lessons data"})
+	}
+	return ctx.Status(fiber.StatusOK).JSON(data)
+}
