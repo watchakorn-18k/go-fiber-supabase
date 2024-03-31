@@ -14,6 +14,7 @@ type CourseLessonsRepository struct {
 
 type ICourseLessonsRepository interface {
 	FindAllCourseLessons() ([]entities.CourseLessonsModel, error)
+	FindCourseLessonsByUID(uid string) ([]entities.CourseLessonsModel, error)
 }
 
 func NewCourseLessonsRepository(db *SupabaseDB) ICourseLessonsRepository {
@@ -24,6 +25,13 @@ func NewCourseLessonsRepository(db *SupabaseDB) ICourseLessonsRepository {
 
 func (repo *CourseLessonsRepository) FindAllCourseLessons() ([]entities.CourseLessonsModel, error) {
 	data, _, err := repo.Client.Select("*", "exact", false).Execute()
+	dataMap := make([]entities.CourseLessonsModel, 0)
+	json.Unmarshal([]byte(data), &dataMap)
+	return dataMap, err
+}
+
+func (repo *CourseLessonsRepository) FindCourseLessonsByUID(uid string) ([]entities.CourseLessonsModel, error) {
+	data, _, err := repo.Client.Select("*", "exact", false).Eq("uid", uid).Execute()
 	dataMap := make([]entities.CourseLessonsModel, 0)
 	json.Unmarshal([]byte(data), &dataMap)
 	return dataMap, err

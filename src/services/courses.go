@@ -14,6 +14,7 @@ type ICoursesService interface {
 	GetAllCourses() (entities.ResponseModel, error)
 	GetCourse(name string) (entities.ResponseModel, error)
 	GetAllCourseLessons() (entities.ResponseModel, error)
+	GetLesson(uid string) (entities.ResponseModel, error)
 }
 
 func NewCoursesService(repo0 repositories.ICoursesRepository, repo1 repositories.ICourseLessonsRepository) ICoursesService {
@@ -42,6 +43,14 @@ func (sv coursesService) GetCourse(name string) (entities.ResponseModel, error) 
 
 func (sv coursesService) GetAllCourseLessons() (entities.ResponseModel, error) {
 	data, err := sv.CourseLessonsRepository.FindAllCourseLessons()
+	if err != nil {
+		return entities.ResponseModel{Message: "not found"}, err
+	}
+	return entities.ResponseModel{Message: "ok", Data: data}, nil
+}
+
+func (sv coursesService) GetLesson(uid string) (entities.ResponseModel, error) {
+	data, err := sv.CourseLessonsRepository.FindCourseLessonsByUID(uid)
 	if err != nil {
 		return entities.ResponseModel{Message: "not found"}, err
 	}

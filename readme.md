@@ -28,7 +28,7 @@ DB_PORT_LOGIN=1818
 
 # Example
 
-## GET http://127.0.0.1:1818/api/course
+## GET http://127.0.0.1:1818/api/course/course-all
 
 - response:
 
@@ -80,7 +80,7 @@ name=python-101
 }
 ```
 
-## GET http://127.0.0.1:1818/api/course/course-lessons
+## GET http://127.0.0.1:1818/api/course/lesson-all
 
 - response:
 
@@ -96,5 +96,29 @@ name=python-101
         },
     .......
     ]
+}
+```
+
+## GET http://127.0.0.1:1818/api/course/get-lesson?
+
+- query param:
+
+```
+course_uid=dfe40a26-2c2e-42d5-92bb-b16bb2235fc0
+```
+
+- response:
+
+```json
+{
+  "message": "ok",
+  "data": [
+    {
+      "uid": "2f3f80f6-0fce-40f8-a688-de6151e12242",
+      "name": "บทที่ 1",
+      "create_at": "",
+      "course_uid": "dfe40a26-2c2e-42d5-92bb-b16bb2235fc0"
+    }
+  ]
 }
 ```

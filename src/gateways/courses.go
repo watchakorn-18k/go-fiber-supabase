@@ -32,3 +32,13 @@ func (h HTTPGateway) GetAllCourseLessons(ctx *fiber.Ctx) error {
 	}
 	return ctx.Status(fiber.StatusOK).JSON(data)
 }
+
+func (h HTTPGateway) GetCourseLesson(ctx *fiber.Ctx) error {
+	params := ctx.Queries()
+	uid := params["uid"]
+	data, err := h.CoursesService.GetLesson(uid)
+	if err != nil {
+		return ctx.Status(fiber.StatusForbidden).JSON(entities.ResponseModel{Message: "cannot get course lesson data"})
+	}
+	return ctx.Status(fiber.StatusOK).JSON(data)
+}
